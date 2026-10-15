@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservas - Punto Alto</title>
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f6f8; color: #333; margin: 0; padding: 20px; }
         .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -12,37 +13,56 @@
         p.instructions { text-align: center; color: #666; }
         #calendar { margin-top: 20px; }
         .selection-panel { margin-top: 25px; padding: 15px; background: #eef2f7; border-radius: 8px; text-align: center; }
-        .btn-whatsapp { display: inline-block; margin-top: 15px; background-color: #25d366; color: white; padding: 12px 25px; font-size: 16px; font-weight: bold; text-decoration: none; border-radius: 5px; transition: background 0.3s; }
+        .btn-whatsapp { display: inline-block; margin-top: 15px; background-color: #25d366; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-size: 16px; font-weight: bold; }
         .btn-whatsapp:hover { background-color: #1ebe5d; }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>Punto Alto</h1>
-    <p class="instructions">Selecciona las fechas de tu estadía haciendo clic en el día de llegada y de salida en el calendario.</p>
-    <div id='calendar'></div>
-    <div class="selection-panel">
-        <p><strong>Fechas seleccionadas:</strong> <span id="selected-dates">Ninguna seleccionada</span></p>
-        <a id="whatsapp-link" href="#" class="btn-whatsapp" style="display:none;" target="_blank">Enviar reserva por WhatsApp</a>
+    <div class="container">
+        <h1>Punto Alto</h1>
+        <p class="instructions">Selecciona las fechas de tu estadía haciendo clic en el día de llegada y de salida en el calendario.</p>
+        <div id="calendar"></div>
+        <div class="selection-panel">
+            <p><strong>Fechas seleccionadas:</strong> <span id="selected-dates">Ninguna seleccionada</span></p>
+            <a id="whatsapp-link" href="#" class="btn-whatsapp" style="display:none;">Reservar por WhatsApp</a>
+        </div>
     </div>
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var selectedDatesEl = document.getElementById('selected-dates');
+            var whatsappLink = document.getElementById('whatsapp-link');
+            var startDate = null;
+            var endDate = null;
 
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var startDate = null;
-        var endDate = null;
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            locale: 'es',
-            selectable: true,
-            select: function(info) {
-                startDate = info.startStr;
-                let realEnd = new Date(info.end);
-                realEnd.setDate(realEnd.getDate() - 1);
-                endDate = realEnd.toISOString().split('T')[0];
-
-                let displayText = startDate === endDate ? `Fecha
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                selectable: true,
+                select: function(info) {
+                    if (!startDate || (startDate && endDate)) {
+                        startDate = info.start;
+                        endDate = null;
+                        selectedDatesEl.textContent = 'Llegada: ' + startDate.toLocaleDateString();
+                        whatsappLink.style.display = 'none';
+                    } else if (startDate && !endDate) {
+                        if (info.start > startDate) {
+                            endDate = info.start;
+                            selectedDatesEl.textContent = 'Llegada: ' + startDate.toLocaleDateString() + ' - Salida: ' + endDate.toLocaleDateString();
+                            var message = 'Hola, quiero reservar en Punto Alto desde el ' + startDate.toLocaleDateString() + ' hasta el ' + endDate.toLocaleDateString();
+                            whatsappLink.href = 'https://wa.me/TUNUMERO?text=' + encodeURIComponent(message);
+                            whatsappLink.style.display = 'inline-block';
+                        } else {
+                            startDate = info.start;
+                            endDate = null;
+                            selectedDatesEl.textContent = 'Llegada: ' + startDate.toLocaleDateString();
+                            whatsappLink.style.display = 'none';
+                        }
+                    }
+                }
+            });
+            calendar.render();
+        });
+    </script>
+</body>
+</html>
