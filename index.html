@@ -273,8 +273,8 @@ summaryCard.style.display = 'flex';
 btnClear.style.display = 'flex';
 btnWhatsapp.style.display = 'flex';
 let dateText = selectedDates.length === 1 ?
-Fecha seleccionada: ${formatDate(selectedDates[0])} :
-Fechas seleccionadas: ${selectedDates.length} días;
+let fechaSeleccionada = Fecha seleccionada: ${formatDate(selectedDates[0])};
+let fechaSeleccionada = Fechas seleccionadas: ${selectedDates.length} días;
 summaryText.innerText = dateText;
 let message = Hola, quiero reservar las siguientes fechas: ${selectedDates.map(d => formatDate(d)).join(', ')};
 let encodedMessage = encodeURIComponent(message);
