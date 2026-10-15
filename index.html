@@ -1,10 +1,35 @@
-<!DOCTYPE html>
+[11:18, 15/10/2026] Punto Alto: <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservas - Punto Alto</title>
     <!-- Estilos de FullCalendar -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css' rel='stylesheet' />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+  …
+[11:41, 15/10/2026] Punto Alto: <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas - Punto Alto</title>
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css' rel='stylesheet' />
     <style>
         body {
@@ -71,7 +96,6 @@
     </div>
 </div>
 
-<!-- Script de FullCalendar -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -84,9 +108,7 @@
             locale: 'es',
             selectable: true,
             selectMirror: true,
-            events: [
-                // Acá podrás agregar fechas ocupadas en el futuro si lo necesitas
-            ],
+            events: [],
             select: function(info) {
                 startDate = info.startStr;
                 let realEnd = new Date(info.end);
