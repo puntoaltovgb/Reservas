@@ -7,165 +7,232 @@
 <!-- FullCalendar JS -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --primary: #1c1c1c;
-  --secondary: #ffffff;
-  --accent: #f9f9fb;
-  --border: #e5e5ea;
-  --text: #1c1c1c;
-  --text-light: #666666;
-  --success: #25d366;
-  --error: #ff3b3b;
+  --primary-gradient: linear-gradient(135deg, #2c3e50, #000000);
+  --accent-gradient: linear-gradient(135deg, #11998e, #38ef7d);
+  --whatsapp-gradient: linear-gradient(135deg, #25D366, #128C7E);
+  --bg-main: #f4f6f9;
+  --card-bg: #ffffff;
+  --text-main: #1a1d20;
+  --text-muted: #718096;
+  --border-color: #edf2f7;
+  --radius-lg: 24px;
+  --radius-sm: 14px;
+  --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0,0,0,0.03);
+  --shadow-btn: 0 10px 20px rgba(37, 211, 102, 0.25);
 }
+
 * {
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
+
 body {
-  background-color: #f2f2f7;
+  background: var(--bg-main);
+  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 24px 24px;
   margin: 0;
-  padding: 15px;
-  color: var(--text);
-}
-.container {
-  max-width: 500px;
-  margin: 0 auto;
-  background: var(--secondary);
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-}
-.header {
-  text-align: center;
-  margin-bottom: 15px;
-}
-.header h1 {
-  font-size: 24px;
-  margin: 0 0 10px 0;
-  font-weight: 700;
-}
-.instructions-badge {
-  display: inline-block;
-  background-color: var(--accent);
-  color: var(--text-light);
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 600;
-}
-#calendar {
-  margin-top: 15px;
-}
-.legend {
+  padding: 20px 12px;
+  color: var(--text-main);
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin: 15px 0;
-  font-size: 13px;
-  color: var(--text-light);
+  align-items: center;
+  min-height: 100vh;
 }
-.legend-item {
-  display: flex;
+
+.container {
+  width: 100%;
+  max-width: 460px;
+  background: var(--card-bg);
+  padding: 28px 22px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.instructions-badge {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  background: #f1f5f9;
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
 }
-.legend-box {
-  width: 14px;
-  height: 14px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-.legend-box.available { background: var(--secondary); }
-.legend-box.occupied { background: var(--border); opacity: 0.6; }
 
-/* FullCalendar Custom Styling */
+/* FullCalendar Customization */
 .fc {
-  --fc-border-color: var(--border);
-  --fc-button-bg-color: var(--text);
-  --fc-button-border-color: var(--text);
-  --fc-button-hover-bg-color: #3a3a3c;
-  --fc-button-active-bg-color: #000000;
+  --fc-border-color: transparent;
+  --fc-button-bg-color: #f1f5f9;
+  --fc-button-border-color: transparent;
+  --fc-button-text-color: var(--text-main);
+  --fc-button-hover-bg-color: #e2e8f0;
+  --fc-button-hover-border-color: transparent;
+  --fc-button-active-bg-color: #cbd5e1;
+  --fc-button-active-border-color: transparent;
   --fc-today-bg-color: transparent;
 }
+
 .fc .fc-toolbar-title {
   font-size: 18px;
   font-weight: 700;
+  color: var(--text-main);
+  text-transform: capitalize;
 }
+
 .fc .fc-button {
-  border-radius: 10px !important;
-  padding: 6px 12px;
-  font-weight: 600;
-  font-size: 13px;
-}
-.fc-theme-standard th {
-  padding: 8px 0;
-  background-color: var(--text);
-  color: var(--secondary);
-  font-size: 12px;
-  border: none !important;
-}
-.fc-daygrid-day-frame {
-  min-height: 55px !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.fc-day-future:hover {
-  background-color: var(--accent) !important;
-}
-.fc-daygrid-day-number {
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--text);
-  text-decoration: none;
-}
-.fc-day-past {
-  background: var(--accent) !important;
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-.day-selected {
-  background-color: var(--text) !important;
-}
-.day-selected .fc-daygrid-day-number {
-  color: var(--secondary) !important;
-}
-.day-status {
-  font-size: 9px;
+  border-radius: 12px !important;
+  padding: 8px 12px;
   font-weight: 700;
-  color: #666;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
+}
+
+.fc-theme-standard th {
+  padding: 10px 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  border: none !important;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-/* Summary & Button Panel */
-.action-panel {
-  margin-top: 15px;
+.fc-theme-standard td {
+  border: none !important;
+}
+
+.fc-daygrid-day-frame {
+  min-height: 52px !important;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  margin: 2px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #f8fafc;
 }
-.summary-card {
-  background: var(--accent);
-  border: 1px solid var(--border);
-  padding: 12px 15px;
-  border-radius: 12px;
+
+.fc-day-future:hover {
+  background: #e2e8f0 !important;
+  transform: translateY(-1px);
+}
+
+.fc-daygrid-day-number {
+  font-weight: 700;
   font-size: 14px;
+  color: var(--text-main);
+  text-decoration: none !important;
+}
+
+.fc-day-past {
+  background: #f1f5f9 !important;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Selección activa */
+.day-selected {
+  background: var(--primary-gradient) !important;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transform: scale(0.96);
+}
+
+.day-selected .fc-daygrid-day-number {
+  color: #ffffff !important;
+}
+
+.day-selected .day-status {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.day-status {
+  font-size: 9px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Leyenda */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 18px 0 10px 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-color);
+  font-size: 12px;
   font-weight: 600;
+  color: var(--text-muted);
+}
+
+.legend-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--text);
 }
+
+.legend-box {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.legend-box.available { background: #f8fafc; border: 1px solid #cbd5e1; }
+.legend-box.selected { background: #1c1c1c; }
+
+/* Panel de Acciones */
+.action-panel {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-card {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-main);
+  animation: fadeIn 0.3s ease;
+}
+
 .btn-action {
   width: 100%;
-  padding: 14px;
-  border-radius: 12px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
   font-size: 15px;
   font-weight: 700;
   border: none;
@@ -175,140 +242,71 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  transition: opacity 0.2s;
+  gap: 10px;
+  transition: all 0.2s ease;
 }
+
 .btn-clear {
-  background-color: var(--secondary);
-  color: var(--text);
-  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  font-size: 13px;
 }
+
+.btn-clear:hover {
+  background: #f1f5f9;
+  color: var(--text-main);
+}
+
 .btn-whatsapp {
-  background-color: var(--success);
+  background: var(--whatsapp-gradient);
   color: #ffffff;
+  box-shadow: var(--shadow-btn);
 }
-.btn-action:hover { opacity: 0.9; }
+
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(37, 211, 102, 0.35);
+}
+
+.btn-whatsapp svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 <body>
+
 <div class="container">
   <div class="header">
     <h1>Punto Alto</h1>
-    <div class="instructions-badge">📌 Tocá las fechas que querés reservar</div>
+    <div class="instructions-badge">
+      <span>📌</span> Select las fechas para tu estadía
+    </div>
   </div>
+
   <div id="calendar"></div>
+
   <div class="legend">
     <div class="legend-item">
       <div class="legend-box available"></div> Disponible
     </div>
     <div class="legend-item">
-      <div class="legend-box occupied"></div> Ocupado
+      <div class="legend-box selected"></div> Seleccionado
     </div>
   </div>
+
   <div class="action-panel">
     <div id="summary-card" class="summary-card" style="display: none;">
-      ✅ <span id="summary-text"></span>
+      <span>✨</span> <span id="summary-text"></span>
     </div>
-    <button id="btn-clear" class="btn-action btn-clear" style="display: none;" onclick="clearSelection()">
-      Limpiar selección
-    </button>
+    
     <a id="btn-whatsapp" href="#" target="_blank" class="btn-action btn-whatsapp" style="display: none;">
-      Reservar por WhatsApp
-    </a>
-  </div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const calendarEl = document.getElementById('calendar');
-  const summaryCard = document.getElementById('summary-card');
-  const summaryText = document.getElementById('summary-text');
-  const btnClear = document.getElementById('btn-clear');
-  const btnWhatsapp = document.getElementById('btn-whatsapp');
-  let selectedDates = [];
-
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    locale: 'es',
-    headerToolbar: {
-      left: 'prev',
-      center: 'title',
-      right: 'next'
-    },
-    selectable: false,
-    dateClick: function(info) {
-      const clickedDate = info.dateStr;
-      const dateObj = new Date(info.dateStr + 'T00:00:00');
-      const today = new Date();
-      today.setHours(0,0,0,0);
-      
-      if (dateObj < today) return;
-
-      const dayEl = info.dayEl;
-      const index = selectedDates.indexOf(clickedDate);
-
-      if (index > -1) {
-        selectedDates.splice(index, 1);
-        dayEl.classList.remove('day-selected');
-      } else {
-        selectedDates.push(clickedDate);
-        dayEl.classList.add('day-selected');
-      }
-
-      selectedDates.sort();
-      updateUI();
-    },
-    dayCellDidMount: function(arg) {
-      const dateObj = arg.date;
-      const today = new Date();
-      today.setHours(0,0,0,0);
-      if (dateObj >= today) {
-        const cell = arg.el;
-        const statusEl = document.createElement('div');
-        statusEl.className = 'day-status';
-        statusEl.innerText = 'Disponible';
-        cell.appendChild(statusEl);
-      }
-    }
-  });
-
-  calendar.render();
-
-  function updateUI() {
-    if (selectedDates.length > 0) {
-      summaryCard.style.display = 'flex';
-      btnClear.style.display = 'flex';
-      btnWhatsapp.style.display = 'flex';
-
-      let dateText = selectedDates.length === 1 ?
-        `Fecha seleccionada: ${formatDate(selectedDates[0])}` :
-        `Fechas seleccionadas: ${selectedDates.length} días`;
-
-      summaryText.innerText = dateText;
-
-      let message = `Hola, quiero reservar las siguientes fechas: ${selectedDates.map(d => formatDate(d)).join(', ')}`;
-      let encodedMessage = encodeURIComponent(message);
-      
-      // Asegúrate de poner el número de WhatsApp correcto con su código de país
-      btnWhatsapp.href = `https://wa.me/5493546555555?text=${encodedMessage}`;
-    } else {
-      summaryCard.style.display = 'none';
-      btnClear.style.display = 'none';
-      btnWhatsapp.style.display = 'none';
-    }
-  }
-
-  window.clearSelection = function() {
-    selectedDates = [];
-    document.querySelectorAll('.day-selected').forEach(el => el.classList.remove('day-selected'));
-    updateUI();
-  };
-
-  function formatDate(dateStr) {
-    const parts = dateStr.split('-');
-    return `${parts[2]}/${parts[1]}`;
-  }
-});
-</script>
-</body>
-</html>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3 18.6-68.1-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.
